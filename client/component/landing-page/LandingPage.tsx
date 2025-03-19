@@ -3,9 +3,11 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import ParticlesBackground from "@/component/ParticlesBackground";
 
 export default function LandingPage() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const [user, setUser] = useState("");
   const router = useRouter();
 
   useEffect(() => {
@@ -25,6 +27,7 @@ export default function LandingPage() {
       })
       .then((res) => {
         console.log("User Data:", res.data);
+        setUser(res.data);
         setIsAuthenticated(true);
       })
       .catch((err) => {
@@ -35,37 +38,40 @@ export default function LandingPage() {
   }, []);
 
   if (isAuthenticated === null) {
-    return <p className="text-white">Checking authentication...</p>;
+    return null; // Loading state
   }
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden">
-      <div className="absolute inset-0 flex flex-col items-center justify-center text-white z-10">
+    <div className="mt-[8rem] w-full overflow-hidden">
+      <div className="flex flex-col items-center justify-center text-center text-white">
         {isAuthenticated ? (
           <>
-            <h1 className="text-4xl font-bold mb-6">Welcome back!</h1>
-            <p className="text-lg text-gray-300 mb-6">
-              You are securely logged in.
+            <ParticlesBackground />
+            <h1 className="md:text-4xl text-xs font-bold mb-6">
+              Welcome back {user}!
+            </h1>
+            <p className="md:text-lg text-xs text-gray-300 mb-6">
+              You are securely logged in without giving away your password!
             </p>
             <button
               onClick={() => {
                 localStorage.removeItem("token");
                 router.push("/login");
               }}
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
             >
               Log Out
             </button>
           </>
         ) : (
           <>
-            <h1 className="text-4xl font-bold mb-6">Welcome!</h1>
+            <h1 className="text-4xl font-bold mb-6 ">Welcome!</h1>
             <p className="text-lg text-gray-300 mb-6">
               You are not signed in yet. Sign in to see your account.
             </p>
             <button
               onClick={() => router.push("/login")}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
             >
               Sign In
             </button>

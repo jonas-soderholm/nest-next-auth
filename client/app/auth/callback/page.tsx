@@ -31,5 +31,14 @@ export default function AuthCallback() {
       });
   }, [token, router]);
 
-  return <p>Logging in...</p>;
+  return (
+    <div className="flex items-center justify-center h-screen">
+      <div className="flex flex-col items-center">
+        {/* Loading Spinner */}
+        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500 border-opacity-50"></div>
+        {/* Loading Text */}
+        <p className="text-white mt-4 text-lg">Checking authentication...</p>
+      </div>
+    </div>
+  );
 }

@@ -17,8 +17,8 @@ export default function Login() {
       .post(`${process.env.NEXT_PUBLIC_API_URL}/signin`, { email })
       .then((res) => {
         console.log("Response:", res.data);
-        setEmailSent(true); // ✅ Set success state
-        setEmail(""); // ✅ Clear email field
+        setEmailSent(true); // Set success state
+        setEmail(""); // Clear email field
       })
       .catch((err) => {
         console.error("Error:", err);
@@ -27,36 +27,35 @@ export default function Login() {
   };
 
   return (
-    <div className="p-6 mt-[10rem] bg-gray-900 text-white rounded-lg max-w-[40rem] mx-auto">
+    <div className="p-6 mt-[5rem] bg-gray-900 text-white rounded-lg max-w-[90%] sm:max-w-[40rem] mx-auto">
       {emailSent ? (
-        // ✅ Show success message when email is sent
         <div>
-          <h2 className="text-4xl font-bold mb-4">Log In</h2>
-          <p>
-            Email sent! Check your email at {email} you should have a login link
-            in a few seconds!
+          <h2 className="text-2xl sm:text-4xl font-bold mb-4">Log In</h2>
+          <p className="text-sm sm:text-base">
+            Email sent! Check your email at{" "}
+            <span className="font-semibold">{email}</span>. You should have a
+            login link in a few seconds!
           </p>
         </div>
       ) : (
-        // ✅ Show login form
         <div>
-          <h2 className="text-4xl font-bold mb-4">Log In</h2>
+          <h2 className="text-2xl sm:text-4xl font-bold mb-4">Log In</h2>
           <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
             <input
               type="email"
               placeholder="you@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="p-3 rounded bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="p-3 rounded bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-400 w-full"
               required
             />
-            <p>
+            <p className="text-sm sm:text-base">
               We'll send you an email with a magic link that will log you in. No
               need for a password!
             </p>
             <button
               type="submit"
-              className="flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-700 text-white py-2 rounded cursor-pointer"
+              className="flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded cursor-pointer w-full"
             >
               Email Link
               <svg
@@ -73,12 +72,12 @@ export default function Login() {
             {emailNotRegistered && (
               <p className="text-red-400 text-xs">{emailNotRegistered}</p>
             )}
-            <p>
+            <p className="text-sm sm:text-base">
               Don't have an account?{" "}
               <Link href="/register">
                 <button className="text-blue-500 hover:underline cursor-pointer">
                   Register
-                </button>{" "}
+                </button>
               </Link>
               for one.
             </p>
