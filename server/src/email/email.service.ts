@@ -17,8 +17,7 @@ export class EmailService {
 
   // Send magic link to the user's email
   async sendMagicLink(email: string, token: string): Promise<void> {
-    console.log(process.env.EMAIL_USER);
-    const magicLink = `${process.env.BASE_URL}/auth/verify?token=${token}`; // Use BASE_URL env variable
+    const magicLink = `${process.env.NEXT_PUBLIC_FRONTEND_ORIGIN}/auth/callback?token=${token}`;
 
     await this.transporter.sendMail({
       to: email,
