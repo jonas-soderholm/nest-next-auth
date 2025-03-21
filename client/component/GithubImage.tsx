@@ -9,7 +9,7 @@ export default function GithubImage() {
       >
         <div
           className="absolute inset-0 flex justify-center items-center
-  mt-[600px] md:mt-[850px] lg:mt-[900px] xl:mt-[1000px]"
+  mt-[600px] md:mt-[850px] lg:mt-[900px] xl:mt-[1050px]"
         >
           <img
             src="/images/vscode.png"

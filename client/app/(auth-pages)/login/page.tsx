@@ -50,8 +50,9 @@ export default function Login() {
               required
             />
             <p className="text-sm sm:text-base">
-              We'll send you an email with a magic link that will log you in. No
-              need for a password!
+              {
+                "We'll send you an email with a magic link that will log you in. No need for a password!"
+              }
             </p>
             <button
               type="submit"
@@ -73,7 +74,7 @@ export default function Login() {
               <p className="text-red-400 text-xs">{emailNotRegistered}</p>
             )}
             <p className="text-sm sm:text-base">
-              Don't have an account?{" "}
+              {"Don't have an account? "}
               <Link href="/register">
                 <button className="text-blue-500 hover:underline cursor-pointer">
                   Register
