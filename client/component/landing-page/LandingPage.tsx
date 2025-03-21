@@ -13,7 +13,7 @@ export default function LandingPage() {
   }
 
   return (
-    <div className="mt-[12rem] w-full overflow-hidden">
+    <div className="mt-[200px] w-full overflow-hidden">
       <div className="flex flex-col items-center justify-center text-center text-white">
         {isAuthenticated ? (
           <>

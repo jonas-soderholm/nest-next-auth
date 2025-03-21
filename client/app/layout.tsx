@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/component/header/Header";
 import ParticlesBackground from "@/component/ParticlesBackground";
+import GithubImage from "@/component/GithubImage";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,13 +32,7 @@ export default function RootLayout({
       >
         <Header />
         <ParticlesBackground />
-
-        <div
-          className="absolute inset-0 flex justify-center items-center
-  mt-64 md:mt-[25rem] lg:mt-[40rem] xl:mt-[60rem]"
-        >
-          <img src="/images/vscode.png" alt="VSCode Image" className="w-3/4" />
-        </div>
+        <GithubImage />
         {children}
       </body>
     </html>
