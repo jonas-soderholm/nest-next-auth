@@ -1,11 +1,14 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, UnauthorizedException, Logger } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
 import { AuthDto } from './dto/auth.dto';
 import { JwtService } from '@nestjs/jwt';
 import { EmailService } from 'src/email/email.service';
+import { Request } from 'express';
 
 @Injectable()
 export class AuthService {
+  private readonly logger = new Logger(AuthService.name);
+
   constructor(
     private prisma: DatabaseService,
     private jwtService: JwtService,
@@ -20,7 +23,9 @@ export class AuthService {
     });
   }
 
-  async signIn(email: string): Promise<{ access_token: string }> {
+  async signIn(email: string, req: Request): Promise<{ access_token: string }> {
+    const ip = req.ip || req.socket.remoteAddress || 'unknown';
+
     const user = await this.prisma.user.findUnique({
       where: {
         email: email,
@@ -28,6 +33,9 @@ export class AuthService {
     });
 
     if (!user) {
+      this.logger.warn(
+        `Failed login attempt for email ${email} from IP: ${ip}`,
+      );
       throw new UnauthorizedException('Invalid credentials');
     }
 
