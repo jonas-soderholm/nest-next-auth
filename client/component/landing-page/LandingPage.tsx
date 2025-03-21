@@ -51,7 +51,7 @@ export default function LandingPage() {
               Welcome back {user}!
             </h1>
             <p className="md:text-lg text-xs text-gray-300 mb-6">
-              You are securely logged in without giving away your password!
+              You are now securely logged in without giving away your password!
             </p>
             <button
               onClick={() => {
