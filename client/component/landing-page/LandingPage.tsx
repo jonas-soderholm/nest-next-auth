@@ -1,48 +1,19 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import axios from "axios";
 import ParticlesBackground from "@/component/ParticlesBackground";
+import useAuth from "@/hooks/useAuth";
 
 export default function LandingPage() {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
-  const [user, setUser] = useState("");
+  const { isAuthenticated, user, logout } = useAuth();
   const router = useRouter();
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      setIsAuthenticated(false);
-      return;
-    }
-
-    // (Optional) Verify the token with the backend for extra security
-    axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/profile`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then((res) => {
-        console.log("User Data:", res.data);
-        setUser(res.data);
-        setIsAuthenticated(true);
-      })
-      .catch((err) => {
-        console.error("Authentication failed:", err);
-        localStorage.removeItem("token");
-        setIsAuthenticated(false);
-      });
-  }, []);
-
   if (isAuthenticated === null) {
-    return null; // Loading state
+    return null;
   }
 
   return (
-    <div className="mt-[8rem] w-full overflow-hidden">
+    <div className="mt-[12rem] w-full overflow-hidden">
       <div className="flex flex-col items-center justify-center text-center text-white">
         {isAuthenticated ? (
           <>
@@ -55,8 +26,7 @@ export default function LandingPage() {
             </p>
             <button
               onClick={() => {
-                localStorage.removeItem("token");
-                router.push("/login");
+                logout();
               }}
               className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
             >

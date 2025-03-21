@@ -24,7 +24,7 @@ export default function ParticlesBackground() {
           },
           color: { value: "#ffffff" }, // Particle color
           shape: { type: "circle" },
-          opacity: { value: 0.8, random: true },
+          opacity: { value: 0.4, random: true },
           size: { value: 2, random: true },
           move: {
             enable: true,

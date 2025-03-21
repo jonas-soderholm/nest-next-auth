@@ -27,7 +27,7 @@ export default function Login() {
   };
 
   return (
-    <div className="p-6 mt-[5rem] bg-gray-900 text-white rounded-lg max-w-[90%] sm:max-w-[40rem] mx-auto">
+    <div className="p-6 mt-[6rem] bg-gray-900 text-white rounded-lg max-w-[90%] sm:max-w-[40rem] mx-auto">
       {emailSent ? (
         <div>
           <h2 className="text-2xl sm:text-4xl font-bold mb-4">Log In</h2>
@@ -78,7 +78,7 @@ export default function Login() {
                 <button className="text-blue-500 hover:underline cursor-pointer">
                   Register
                 </button>
-              </Link>
+              </Link>{" "}
               for one.
             </p>
           </form>
