@@ -17,8 +17,8 @@ export default function Login() {
       .post(`${process.env.NEXT_PUBLIC_API_URL}/signin`, { email })
       .then((res) => {
         console.log("Response:", res.data);
-        setEmailSent(true); // Set success state
-        setEmail(""); // Clear email field
+        setEmail(email);
+        setEmailSent(true);
       })
       .catch((err) => {
         console.error("Error:", err);
