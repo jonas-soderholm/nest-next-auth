@@ -1,6 +1,7 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, Req } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthDto } from './dto/auth.dto';
+import { Request } from 'express';
 
 @Controller()
 export class AuthController {
@@ -12,7 +13,12 @@ export class AuthController {
   }
 
   @Post('signin')
-  signIn(@Body() authDto: AuthDto) {
-    return this.authService.signIn(authDto.email, authDto.password);
+  signIn(@Body('email') email: string, @Req() req: Request) {
+    return this.authService.signIn(email, req);
+  }
+
+  @Get('validate-magic-link')
+  async validateMagicLink(@Query('token') token: string) {
+    return this.authService.validateMagicLink(token);
   }
 }

@@ -1,12 +1,14 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, UnauthorizedException, Logger } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
 import { AuthDto } from './dto/auth.dto';
-import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { EmailService } from 'src/email/email.service';
+import { Request } from 'express';
 
 @Injectable()
 export class AuthService {
+  private readonly logger = new Logger(AuthService.name);
+
   constructor(
     private prisma: DatabaseService,
     private jwtService: JwtService,
@@ -14,32 +16,26 @@ export class AuthService {
   ) {}
 
   async signUp(signupDto: AuthDto) {
-    const hashedPassword = await bcrypt.hash(signupDto.password, 10);
     return await this.prisma.user.create({
       data: {
         email: signupDto.email,
-        password: hashedPassword,
       },
     });
   }
 
-  async signIn(
-    email: string,
-    password: string,
-  ): Promise<{ access_token: string }> {
+  async signIn(email: string, req: Request): Promise<{ access_token: string }> {
+    const ip = req.ip || req.socket.remoteAddress || 'unknown';
+
     const user = await this.prisma.user.findUnique({
       where: {
         email: email,
       },
     });
 
-    if (!user || !user.password) {
-      throw new UnauthorizedException('Invalid credentials');
-    }
-
-    const isPasswordMatching = await bcrypt.compare(password, user.password);
-
-    if (!isPasswordMatching) {
+    if (!user) {
+      this.logger.warn(
+        `Failed login attempt for email ${email} from IP: ${ip}`,
+      );
       throw new UnauthorizedException('Invalid credentials');
     }
 
@@ -52,5 +48,26 @@ export class AuthService {
     return {
       access_token: access_token,
     };
+  }
+
+  async validateMagicLink(token: string): Promise<{ access_token: string }> {
+    try {
+      // Verify the token
+      const payload = await this.jwtService.verifyAsync(token);
+
+      // Find the user by ID from the token
+      const user = await this.prisma.user.findUnique({
+        where: { id: payload.sub },
+      });
+
+      if (!user) {
+        throw new UnauthorizedException('Invalid token');
+      }
+
+      // Return a new access token for frontend authentication
+      return { access_token: token };
+    } catch (error) {
+      throw new UnauthorizedException('Invalid or expired token');
+    }
   }
 }

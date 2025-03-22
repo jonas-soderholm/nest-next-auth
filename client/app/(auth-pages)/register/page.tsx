@@ -35,7 +35,7 @@ export default function SignUp() {
   };
 
   return (
-    <div className="p-6 mt-[5rem] bg-gray-900 text-white rounded-lg max-w-[90%] sm:max-w-[40rem] mx-auto">
+    <div className="p-6 mt-[6rem] bg-gray-900 text-white rounded-lg max-w-[90%] sm:max-w-[40rem] mx-auto">
       {registered ? (
         <div>
           <h2 className="text-2xl sm:text-4xl font-bold mb-4">Register</h2>

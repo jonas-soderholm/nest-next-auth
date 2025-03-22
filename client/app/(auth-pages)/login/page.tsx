@@ -27,7 +27,7 @@ export default function Login() {
   };
 
   return (
-    <div className="p-6 mt-[5rem] bg-gray-900 text-white rounded-lg max-w-[90%] sm:max-w-[40rem] mx-auto">
+    <div className="p-6 mt-[6rem] bg-gray-900 text-white rounded-lg max-w-[90%] sm:max-w-[40rem] mx-auto">
       {emailSent ? (
         <div>
           <h2 className="text-2xl sm:text-4xl font-bold mb-4">Log In</h2>
@@ -50,8 +50,9 @@ export default function Login() {
               required
             />
             <p className="text-sm sm:text-base">
-              We'll send you an email with a magic link that will log you in. No
-              need for a password!
+              {
+                "We'll send you an email with a magic link that will log you in. No need for a password!"
+              }
             </p>
             <button
               type="submit"
@@ -73,12 +74,12 @@ export default function Login() {
               <p className="text-red-400 text-xs">{emailNotRegistered}</p>
             )}
             <p className="text-sm sm:text-base">
-              Don't have an account?{" "}
+              {"Don't have an account? "}
               <Link href="/register">
                 <button className="text-blue-500 hover:underline cursor-pointer">
                   Register
                 </button>
-              </Link>
+              </Link>{" "}
               for one.
             </p>
           </form>

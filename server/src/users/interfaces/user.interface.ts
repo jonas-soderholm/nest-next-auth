@@ -14,3 +14,9 @@ export interface Post {
   published: boolean;
   authorId: number;
 }
+
+export interface ReqAuthSub {
+  user: {
+    sub: number;
+  };
+}
