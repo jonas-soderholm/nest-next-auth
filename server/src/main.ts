@@ -31,5 +31,4 @@ async function bootstrap() {
 
   Logger.log(`🚀 Application running on port ${port}`);
 }
-
 bootstrap();
