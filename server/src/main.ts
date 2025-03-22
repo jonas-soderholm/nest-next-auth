@@ -5,14 +5,8 @@ import helmet from 'helmet';
 import { Logger } from '@nestjs/common';
 import { WinstonModule } from 'nest-winston';
 import * as winston from 'winston';
-import { config } from 'dotenv';
-import * as path from 'path';
 
-if (process.env.NODE_ENV === 'production') {
-  config({ path: path.resolve(__dirname, '..', '.env.production') });
-} else {
-  config({ path: path.resolve(__dirname, '..', '.env') });
-}
+dotenv.config();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
