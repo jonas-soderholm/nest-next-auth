@@ -17,8 +17,6 @@ jobs:
       - name: Log in to Heroku Container Registry
         run: echo "${{ secrets.HEROKU_API_KEY }}" | docker login --username=_ --password-stdin registry.heroku.com
 
-<<<<<<< HEAD
-=======
       ### === BACKEND: Run tests BEFORE deploying anything ===
       - name: Install dependencies and run tests (NestJS)
         working-directory: ./server
@@ -26,7 +24,6 @@ jobs:
           npm install
           npm run test
 
->>>>>>> origin/dev
       ### === FRONTEND ===
       - name: Build & Push frontend (Next.js)
         working-directory: ./client
