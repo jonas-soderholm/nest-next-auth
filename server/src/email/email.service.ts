@@ -7,10 +7,10 @@ export class EmailService {
 
   constructor() {
     this.transporter = nodemailer.createTransport({
-      service: process.env.EMAIL_SERVICE || 'gmail', // Use environment variable or default to 'gmail'
+      service: process.env.EMAIL_SERVICE || 'gmail',
       auth: {
-        user: process.env.EMAIL_USER, // Your email address
-        pass: process.env.EMAIL_APP_PASSWORD, // Your email password
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_APP_PASSWORD,
       },
     });
   }
